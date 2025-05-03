@@ -1,4 +1,4 @@
-package com.expertcode.exercicio3.services;
+package com.expertcode.exercicio3.servicos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.expertcode.exercicio3.entidades.Veiculo;
 import com.expertcode.exercicio3.entidades.DTO.VeiculoDTO;
 import com.expertcode.exercicio3.repositorios.VeiculoRepositorio;
+import com.expertcode.exercicio3.servicos.genericos.ServicoGenerico;
 
 @Service
 @Transactional(readOnly = true)

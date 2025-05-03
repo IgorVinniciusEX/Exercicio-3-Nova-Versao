@@ -2,6 +2,9 @@ package com.expertcode.exercicio3.entidades;
 
 import java.io.Serializable;
 
+import com.expertcode.exercicio3.entidades.DTO.MarcaDTO;
+import com.expertcode.exercicio3.utilitarios.ConversorDtoEntidade;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,8 +24,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "tb_veiculo")
-public class Marca implements Serializable{
+@Table(name = "tb_marca")
+public class Marca implements Serializable, ConversorDtoEntidade<MarcaDTO>{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -31,5 +34,10 @@ public class Marca implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
+	
+	@Override
+	public MarcaDTO converter() {
+		return new MarcaDTO(this);
+	}
 	
 }

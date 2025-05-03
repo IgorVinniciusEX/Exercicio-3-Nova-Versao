@@ -1,4 +1,4 @@
-package com.expertcode.exercicio3.services;
+package com.expertcode.exercicio3.servicos.genericos;
 
 import java.util.List;
 import java.util.Optional;

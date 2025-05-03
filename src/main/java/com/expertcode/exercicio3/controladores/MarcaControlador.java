@@ -15,31 +15,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.expertcode.exercicio3.entidades.Veiculo;
-import com.expertcode.exercicio3.entidades.DTO.VeiculoDTO;
-import com.expertcode.exercicio3.servicos.VeiculoServico;
+import com.expertcode.exercicio3.entidades.Marca;
+import com.expertcode.exercicio3.entidades.DTO.MarcaDTO;
+import com.expertcode.exercicio3.servicos.MarcaServico;
 
 @RestController
-@RequestMapping(value = "/veiculos")
-public class VeiculoControlador {
+@RequestMapping(value = "/marcas")
+public class MarcaControlador {
 	
 	@Autowired
-	VeiculoServico servico;
+	MarcaServico servico;
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<VeiculoDTO> buscarPorId(@PathVariable Long id){
-		VeiculoDTO obj = servico.buscarPorId(id);
+	public ResponseEntity<MarcaDTO> buscarPorId(@PathVariable Long id){
+		MarcaDTO obj = servico.buscarPorId(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<VeiculoDTO>> buscarTodos(){
-		List<VeiculoDTO> veiculos = servico.buscarTodos();
-		return ResponseEntity.ok().body(veiculos);
+	public ResponseEntity<List<MarcaDTO>> buscarTodos(){
+		List<MarcaDTO> Marcas = servico.buscarTodos();
+		return ResponseEntity.ok().body(Marcas);
 	}
 	
 	@PostMapping
-	public ResponseEntity<VeiculoDTO> inserir(@RequestBody Veiculo obj){
+	public ResponseEntity<MarcaDTO> inserir(@RequestBody Marca obj){
 		obj = servico.inserir(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getId()).toUri();
@@ -48,8 +48,8 @@ public class VeiculoControlador {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Veiculo> atualizar(@PathVariable Long id, @RequestBody VeiculoDTO dto){
-		Veiculo obj = servico.converterDTO(dto);
+	public ResponseEntity<Marca> atualizar(@PathVariable Long id, @RequestBody MarcaDTO dto){
+		Marca obj = servico.converterDTO(dto);
 		obj = servico.atualizar(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
