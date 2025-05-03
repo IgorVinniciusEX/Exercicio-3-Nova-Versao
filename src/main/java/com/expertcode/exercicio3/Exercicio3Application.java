@@ -28,12 +28,12 @@ Um endpoint para buscar uma marca por Id
 
 Um endpoint para cadastrar uma nova marca
 
-Um endpoint para cadastrar um novo veículo
+Um endpoint para cadastrar um novo veículo > ok
 
-Um endpoint para deletar um veículo por Id
+Um endpoint para deletar um veículo por Id > ok
 
-Um endpoint para buscar um veículo por Id
+Um endpoint para buscar um veículo por Id > ok
 
-Um endpoint para listar todos os veículos
+Um endpoint para listar todos os veículos > ok
 
 Como requisitos não funcionais, utilizar banco de dados Mysql.*/

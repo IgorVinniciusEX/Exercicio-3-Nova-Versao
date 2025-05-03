@@ -2,6 +2,9 @@ package com.expertcode.exercicio3.entidades;
 
 import java.io.Serializable;
 
+import com.expertcode.exercicio3.entidades.DTO.VeiculoDTO;
+import com.expertcode.exercicio3.utilitarios.ConversorDtoEntidade;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +25,7 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "tb_veiculo")
-public class Veiculo implements Serializable{
+public class Veiculo implements Serializable, ConversorDtoEntidade<VeiculoDTO>{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -34,5 +37,10 @@ public class Veiculo implements Serializable{
 	private String placa;
 	private String modelo;
 	private Integer anoVeiculo;
+	
+	@Override
+	public VeiculoDTO converter() {
+		return new VeiculoDTO(this);
+	}
 	
 }

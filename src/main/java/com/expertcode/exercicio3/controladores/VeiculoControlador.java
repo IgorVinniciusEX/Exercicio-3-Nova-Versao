@@ -2,7 +2,6 @@ package com.expertcode.exercicio3.controladores;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,21 +28,18 @@ public class VeiculoControlador {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<VeiculoDTO> buscarPorId(@PathVariable Long id){
-		Veiculo obj = servico.buscarPorId(id);
-		return ResponseEntity.ok().body(new VeiculoDTO(obj));
+		VeiculoDTO obj = servico.buscarPorId(id);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping
 	public ResponseEntity<List<VeiculoDTO>> buscarTodos(){
-		List<Veiculo> veiculos = servico.buscarTodos();
-		List<VeiculoDTO> list = veiculos.stream().map(x -> new VeiculoDTO(x))
-				.collect(Collectors.toList());
-		return ResponseEntity.ok().body(list);
+		List<VeiculoDTO> veiculos = servico.buscarTodos();
+		return ResponseEntity.ok().body(veiculos);
 	}
 	
 	@PostMapping
-	public ResponseEntity<VeiculoDTO> inserir(@RequestBody VeiculoDTO dto){
-		Veiculo obj = servico.converterDTO(dto);
+	public ResponseEntity<VeiculoDTO> inserir(@RequestBody Veiculo obj){
 		obj = servico.inserir(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getId()).toUri();
@@ -63,5 +59,6 @@ public class VeiculoControlador {
 		servico.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+	
 
 }

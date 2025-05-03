@@ -1,9 +1,7 @@
 package com.expertcode.exercicio3.services;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,37 +11,21 @@ import com.expertcode.exercicio3.repositorios.VeiculoRepositorio;
 
 @Service
 @Transactional(readOnly = true)
-public class VeiculoServico {
+public class VeiculoServico implements ServicoGenerico<Veiculo, VeiculoDTO, Long> {
 	
 	@Autowired
 	VeiculoRepositorio repositorio;
 	
-	@Transactional
-	public Veiculo buscarPorId(Long id) {
-		Optional<Veiculo> obj = repositorio.findById(id);
-		return obj.get();
-	}
-	
-	@Transactional
-	public List<Veiculo> buscarTodos(){
-		return repositorio.findAll();
-	}
-	
-	@Transactional
-	public Veiculo inserir(Veiculo obj) {
-		return repositorio.save(obj);
-	}
-	
-	@Transactional
-	public void delete(Long id) {
-		repositorio.deleteById(id);
+	@Override
+	public JpaRepository<Veiculo, Long> getRepositorio() {
+		return repositorio;
 	}
 	
 	@Transactional
 	public Veiculo atualizar(Long id, Veiculo obj) {
-		Veiculo entidade = repositorio.getReferenceById(id);
+		Veiculo entidade = getRepositorio().getReferenceById(id);
 		atualizarDados(entidade, obj);
-		return repositorio.save(entidade);
+		return getRepositorio().save(entidade);
 		
 	}
 	
@@ -53,9 +35,10 @@ public class VeiculoServico {
 		entidade.setAnoVeiculo(obj.getAnoVeiculo());
 		entidade.setModelo(obj.getModelo());
 	}
-	
+
 	public Veiculo converterDTO(VeiculoDTO dto) {
-		return new Veiculo(dto.getId(), dto.getNome(), dto.getPlaca(), dto.getModelo(),
-				dto.getAnoVeiculo());
-	}
+ 		return new Veiculo(dto.getId(), dto.getNome(), dto.getPlaca(), dto.getModelo(),
+ 				dto.getAnoVeiculo());
+ 	}
+	
 }
