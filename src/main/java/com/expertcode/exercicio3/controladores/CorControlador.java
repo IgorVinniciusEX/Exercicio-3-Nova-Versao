@@ -10,26 +10,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.expertcode.exercicio3.entidades.DTO.CategoriaDTO;
-import com.expertcode.exercicio3.servicos.CategoriaServico;
+import com.expertcode.exercicio3.entidades.DTO.CorDTO;
+import com.expertcode.exercicio3.servicos.CorServico;
 
 @RestController
-@RequestMapping(value = "/categorias")
-public class CategoriaControlador {
+@RequestMapping(value = "/cores")
+public class CorControlador {
 
 	@Autowired
-	private CategoriaServico servico;
+	private CorServico servico;
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<CategoriaDTO> buscarPorId(@PathVariable Long id){
-		CategoriaDTO obj = servico.buscarPorId(id);
+	public ResponseEntity<CorDTO> buscarPorId(@PathVariable Long id){
+		CorDTO obj = servico.buscarPorId(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<CategoriaDTO>> buscarTodos(){
-		List<CategoriaDTO> Categorias = servico.buscarTodos();
-		return ResponseEntity.ok().body(Categorias);
+	public ResponseEntity<List<CorDTO>> buscarTodos(){
+		List<CorDTO> Cors = servico.buscarTodos();
+		return ResponseEntity.ok().body(Cors);
 	}
 	
 	@DeleteMapping(value = "/{id}")

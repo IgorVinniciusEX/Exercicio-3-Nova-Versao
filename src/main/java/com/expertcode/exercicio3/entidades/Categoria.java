@@ -1,15 +1,19 @@
 package com.expertcode.exercicio3.entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.expertcode.exercicio3.entidades.DTO.CategoriaDTO;
 import com.expertcode.exercicio3.entidades.enumerados.CategoriaEnum;
 import com.expertcode.exercicio3.utilitarios.ConversorDtoEntidade;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,6 +36,10 @@ public class Categoria implements Serializable, ConversorDtoEntidade<CategoriaDT
 	private Long id;
 	
 	private String categoriaEnum;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "categoria")
+	private List<Veiculo> veiculos = new ArrayList<>();
 	
 	public Categoria(Long id, CategoriaEnum categoriaEnum) {
 		this.id = id;

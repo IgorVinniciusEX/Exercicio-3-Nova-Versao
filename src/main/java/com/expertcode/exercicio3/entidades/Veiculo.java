@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -20,8 +22,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "tb_veiculo")
@@ -38,9 +40,20 @@ public class Veiculo implements Serializable, ConversorDtoEntidade<VeiculoDTO>{
 	private String modelo;
 	private Integer anoVeiculo;
 	
+	@ManyToOne
+	@JoinColumn(name = "cor_id")
+	private Cor cor;
+	
+	@ManyToOne
+	@JoinColumn(name = "marca_id")
+	private Marca marca;
+	
+	@ManyToOne
+	@JoinColumn(name = "categoria_id")
+	private Categoria categoria;
+	
 	@Override
 	public VeiculoDTO converter() {
 		return new VeiculoDTO(this);
 	}
-	
 }
