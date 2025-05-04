@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.expertcode.exercicio3.utilitarios.ConversorDtoEntidade;
 
-@Transactional(readOnly = true)
 public interface ServicoGenerico<T extends ConversorDtoEntidade<DTO>, DTO, ID> {
 	
 	@Autowired

@@ -9,49 +9,40 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.expertcode.exercicio3.entidades.Veiculo;
-import com.expertcode.exercicio3.entidades.DTO.VeiculoDTO;
-import com.expertcode.exercicio3.servicos.VeiculoServico;
+import com.expertcode.exercicio3.entidades.Categoria;
+import com.expertcode.exercicio3.entidades.DTO.CategoriaDTO;
+import com.expertcode.exercicio3.servicos.CategoriaServico;
 
 @RestController
-@RequestMapping(value = "/veiculos")
-public class VeiculoControlador {
-	
+@RequestMapping(value = "/categorias")
+public class CategoriaControlador {
+
 	@Autowired
-	private VeiculoServico servico;
+	private CategoriaServico servico;
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<VeiculoDTO> buscarPorId(@PathVariable Long id){
-		VeiculoDTO obj = servico.buscarPorId(id);
+	public ResponseEntity<CategoriaDTO> buscarPorId(@PathVariable Long id){
+		CategoriaDTO obj = servico.buscarPorId(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<VeiculoDTO>> buscarTodos(){
-		List<VeiculoDTO> veiculos = servico.buscarTodos();
-		return ResponseEntity.ok().body(veiculos);
+	public ResponseEntity<List<CategoriaDTO>> buscarTodos(){
+		List<CategoriaDTO> Categorias = servico.buscarTodos();
+		return ResponseEntity.ok().body(Categorias);
 	}
 	
 	@PostMapping
-	public ResponseEntity<VeiculoDTO> inserir(@RequestBody Veiculo obj){
+	public ResponseEntity<CategoriaDTO> inserir(@RequestBody Categoria obj){
 		obj = servico.inserir(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
-		
-	}
-	
-	@PutMapping(value = "/{id}")
-	public ResponseEntity<Veiculo> atualizar(@PathVariable Long id, @RequestBody VeiculoDTO dto){
-		Veiculo obj = servico.converterDTO(dto);
-		obj = servico.atualizar(id, obj);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.created(uri).build();		
 	}
 	
 	@DeleteMapping(value = "/{id}")
