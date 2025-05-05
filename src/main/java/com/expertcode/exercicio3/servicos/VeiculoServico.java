@@ -8,7 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.expertcode.exercicio3.entidades.Veiculo;
 import com.expertcode.exercicio3.entidades.DTO.VeiculoDTO;
 import com.expertcode.exercicio3.repositorios.VeiculoRepositorio;
+import com.expertcode.exercicio3.servicos.excecoes.RecursoNaoEncontradoExcecao;
 import com.expertcode.exercicio3.servicos.genericos.ServicoGenerico;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,10 +27,13 @@ public class VeiculoServico implements ServicoGenerico<Veiculo, VeiculoDTO, Long
 
 	@Transactional
 	public Veiculo atualizar(Long id, Veiculo obj) {
-		Veiculo entidade = getRepositorio().getReferenceById(id);
-		atualizarDados(entidade, obj);
-		return getRepositorio().save(entidade);
-
+		try{
+			Veiculo entidade = getRepositorio().getReferenceById(id);
+			atualizarDados(entidade, obj);
+			return getRepositorio().save(entidade);
+		}catch(EntityNotFoundException e){
+			throw new RecursoNaoEncontradoExcecao(id);
+		}	
 	}
 
 	public void atualizarDados(Veiculo entidade, Veiculo obj) {
